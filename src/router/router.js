@@ -2,10 +2,12 @@ import Category from '@/pages/Category'
 import Home from '@/pages/Home'
 import Profile from '@/pages/Profile'
 import ThreadShow from '@/pages/ThreadShow'
+import ThreadCreate from '@/pages/ThreadCreate'
 import NotFound from '@/pages/NotFound'
 import Forum from '@/pages/Forum'
 import { createRouter, createWebHistory } from 'vue-router'
 import sourceData from '/public/data/data.json'
+import ThreadEdit from '@/pages/ThreadEdit'
 
 const routes = [
   {
@@ -58,6 +60,18 @@ const routes = [
         hash: to.hash,
       })
     },
+  },
+  {
+    path: '/forum/:forumId/thread/create',
+    name: 'ThreadCreate',
+    component: ThreadCreate,
+    props: true,
+  },
+  {
+    path: '/thread/:id/edit',
+    name: 'ThreadEdit',
+    component: ThreadEdit,
+    props: true,
   },
   {
     path: '/:pathMatch(.*)*',

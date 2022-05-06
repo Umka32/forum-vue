@@ -35,7 +35,6 @@ export default {
     const save = () => {
       const post = {
         text: text.value,
-        publishedAt: Math.floor(Date.now() / 1000),
         threadId: props.threadId,
       }
       emit('save', post)

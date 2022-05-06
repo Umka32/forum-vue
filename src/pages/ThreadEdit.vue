@@ -1,10 +1,15 @@
 <template>
   <div class="col-full push-top">
     <h1>
-      Create new thread in <i>{{ forumName }}</i>
+      Editing <i>{{ thread.title }}</i>
     </h1>
 
-    <ThreadEditor @save="save" @cancel="cancel" />
+    <ThreadEditor
+      :title="thread.title"
+      :text="text"
+      @save="save"
+      @cancel="cancel"
+    />
   </div>
 </template>
 
@@ -16,21 +21,26 @@ import router from '@/router/router'
 import ThreadEditor from '@/components/ThreadEditor'
 
 export default {
-  name: 'ThreadCreate',
+  name: 'ThreadEdit',
   props: {
-    forumId: { type: String, required: true },
+    id: { type: String, required: true },
   },
   components: { ThreadEditor },
   setup(props) {
     const store = useStore()
 
-    const forumName = computed(() => {
-      return store.state.forums.find((forum) => forum.id === props.forumId).name
+    const thread = computed(() => {
+      return store.state.threads.find((thread) => thread.id === props.id)
+    })
+
+    const text = computed(() => {
+      return store.state.posts.find((post) => post.id === thread.value.posts[0])
+        .text
     })
 
     const save = async ({ title, text }) => {
-      const res = await store.dispatch('createThread', {
-        forumId: props.forumId,
+      const res = await store.dispatch('updateThread', {
+        id: props.id,
         title,
         text,
       })
@@ -38,13 +48,14 @@ export default {
     }
 
     const cancel = () => {
-      router.push({ name: 'Forum', params: { id: props.forumId } })
+      router.push({ name: 'ThreadShow', params: { id: props.id } })
     }
 
     return {
       save,
-      forumName,
+      thread,
       cancel,
+      text,
     }
   },
 }
