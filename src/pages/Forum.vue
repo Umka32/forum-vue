@@ -22,6 +22,8 @@ import ThreadList from '@/components/ThreadList'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 
+import { findById } from '@/helpers'
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Forum',
@@ -36,7 +38,7 @@ export default {
     const store = useStore()
 
     const forum = computed(() => {
-      return store.state.forums.find((el) => el.id === props.id)
+      return findById(store.state.forums, props.id)
     })
 
     const threads = computed(() => {

@@ -20,6 +20,7 @@ import { useStore } from 'vuex'
 
 import PostList from '@/components/PostList'
 import PostEditor from '@/components/PostEditor'
+import { findById } from '@/helpers'
 
 export default {
   name: 'ThreadShow',
@@ -38,7 +39,7 @@ export default {
     })
 
     const thread = computed(() => {
-      return threads.value.find((thread) => thread.id === props.id)
+      return findById(threads.value, props.id)
     })
 
     const posts = computed(() => {

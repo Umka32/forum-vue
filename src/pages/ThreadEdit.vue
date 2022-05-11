@@ -19,6 +19,7 @@ import { useStore } from 'vuex'
 import router from '@/router/router'
 
 import ThreadEditor from '@/components/ThreadEditor'
+import { findById } from '@/helpers'
 
 export default {
   name: 'ThreadEdit',
@@ -30,12 +31,11 @@ export default {
     const store = useStore()
 
     const thread = computed(() => {
-      return store.state.threads.find((thread) => thread.id === props.id)
+      return findById(store.state.threads, props.id)
     })
 
     const text = computed(() => {
-      return store.state.posts.find((post) => post.id === thread.value.posts[0])
-        .text
+      return findById(store.state.posts, thread.value.posts[0]).text
     })
 
     const save = async ({ title, text }) => {

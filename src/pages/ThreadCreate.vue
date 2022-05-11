@@ -14,6 +14,7 @@ import { useStore } from 'vuex'
 import router from '@/router/router'
 
 import ThreadEditor from '@/components/ThreadEditor'
+import { findById } from '@/helpers'
 
 export default {
   name: 'ThreadCreate',
@@ -25,7 +26,7 @@ export default {
     const store = useStore()
 
     const forumName = computed(() => {
-      return store.state.forums.find((forum) => forum.id === props.forumId).name
+      return findById(store.state.forums, props.forumId).name
     })
 
     const save = async ({ title, text }) => {

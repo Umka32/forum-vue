@@ -11,6 +11,8 @@ import ForumList from '@/components/ForumList'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 
+import { findById } from '@/helpers'
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Category',
@@ -25,7 +27,7 @@ export default {
     const store = useStore()
 
     const category = computed(() => {
-      return store.state.categories.find((el) => el.id === props.id)
+      return findById(store.state.categories, props.id)
     })
 
     const getForumsForCategory = (categoryId) => {

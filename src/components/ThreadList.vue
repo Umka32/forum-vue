@@ -41,6 +41,8 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 
+import { findById } from '@/helpers'
+
 export default {
   name: 'ThreadList',
   components: {},
@@ -57,7 +59,7 @@ export default {
     })
 
     const userById = (userId) => {
-      return users.value.find((p) => p.id === userId)
+      return findById(users.value, userId)
     }
 
     return {
